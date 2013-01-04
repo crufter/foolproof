@@ -1,3 +1,5 @@
+-- Monads and do notation.
+
 -- Returns Just 4
 z = do
     Just 2
@@ -22,6 +24,10 @@ z1' = do
 io = do
     getLine >>= \str -> print str
 
+-- This is the same as io.
+io' = do
+    getLine >>= print
+
 -- Regarding code below, note that in reality, the IO, if present, is always at the bottom of the stack (at the innermost layer).
 
 -- Monads can be nested.
@@ -33,6 +39,9 @@ x = do
 -- Or even more nested, like deeply nested JSON structures.
 y :: Maybe (IO (Maybe String))
 y = Just x
+
+-- Once you are in a particular monad, your whole sequence in the do notation will be in that monad.
+-- The monad you are in is either defined by the explicit type signature or inferred by the compiler.
 
 -- This would not compile, try it. It wouldn't make sense anyway.
 -- stupid = do
